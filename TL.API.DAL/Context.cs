@@ -22,14 +22,16 @@ namespace TL.API.DAL
 
         public void Init()
         {
-            this.Database.Delete();
-            List<Product> ProductInstance = JArray.Parse(Properties.Resources.data).ToObject<List<Product>>();
-
-            foreach (Product Product in ProductInstance)
+            if (!this.Database.Exists())
             {
-                DbSet Entity = this.Set<Product>();
-                Entity.Add(Product);
-                this.SaveChanges();
+                List<Product> ProductInstance = JArray.Parse(Properties.Resources.data).ToObject<List<Product>>();
+
+                foreach (Product Product in ProductInstance)
+                {
+                    DbSet Entity = this.Set<Product>();
+                    Entity.Add(Product);
+                    this.SaveChanges();
+                }
             }
         }
     }
