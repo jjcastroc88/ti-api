@@ -26,7 +26,10 @@ namespace TL.API.BLL.Services
         {
             List<Product> ProductList = new List<Product>();
 
-            foreach(Product Product in context.Product.ToList())
+            Category = Category.ToLower();
+            Category = char.ToUpper(Category[0]) + Category.Substring(1);
+
+            foreach (Product Product in context.Product.ToList())
             {
                 if (Product.Categories.Contains(Category))
                 {
